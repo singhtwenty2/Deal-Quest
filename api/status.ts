@@ -1,21 +1,44 @@
+/**
+ * Health status API endpoint for Deal-Quest-Bot
+ * @module health
+ */
+
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "fs";
 import { join } from "path";
 
+/**
+ * Interface representing the health metrics of the application
+ * @interface HealthMetrics
+ */
 interface HealthMetrics {
+    /** Overall system status */
     status: "operational" | "degraded" | "down";
+    /** System uptime in hours and minutes format */
     uptime: string;
+    /** Response time in milliseconds */
     responseTime: number;
+    /** ISO timestamp of when metrics were collected */
     timestamp: string;
+    /** Status of individual services */
     services: {
+        /** API service status */
         api: "operational" | "degraded" | "down";
+        /** Database service status */
         database: "operational" | "degraded" | "down";
+        /** Webhook service status */
         webhook: "operational" | "degraded" | "down";
+        /** QR code generation service status */
         qr_generator: "operational" | "degraded" | "down";
     };
+    /** Application version */
     version: string;
 }
 
+/**
+ * Collects and returns health metrics for the application
+ * @returns {HealthMetrics} Object containing health metrics data
+ */
 function getHealthMetrics(): HealthMetrics {
     const startTime = Date.now();
 
@@ -38,6 +61,11 @@ function getHealthMetrics(): HealthMetrics {
     return metrics;
 }
 
+/**
+ * Maps a service status to its corresponding color code
+ * @param {string} status - The service status ("operational", "degraded", or "down")
+ * @returns {string} Hex color code corresponding to the status
+ */
 function getStatusColor(status: string): string {
     switch (status) {
         case "operational":
@@ -51,6 +79,12 @@ function getStatusColor(status: string): string {
     }
 }
 
+/**
+ * Generates the HTML status page using a template and health metrics
+ * @param {HealthMetrics} metrics - The health metrics to display
+ * @returns {string} HTML content of the status page
+ * @throws Will throw an error if the template file cannot be read
+ */
 function generateStatusPage(metrics: HealthMetrics): string {
     try {
         const templatePath = join(process.cwd(), "api", "health-template.html");
@@ -105,6 +139,11 @@ function generateStatusPage(metrics: HealthMetrics): string {
     }
 }
 
+/**
+ * Generates a fallback HTML status page when the template cannot be loaded
+ * @param {HealthMetrics} metrics - The health metrics to display
+ * @returns {string} HTML content of the fallback status page
+ */
 function getFallbackHtml(metrics: HealthMetrics): string {
     return `<!DOCTYPE html>
 <html lang="en">
@@ -187,6 +226,12 @@ function getFallbackHtml(metrics: HealthMetrics): string {
 </html>`;
 }
 
+/**
+ * Vercel serverless function that serves the health status page
+ * @param {VercelRequest} req - The incoming HTTP request
+ * @param {VercelResponse} res - The HTTP response object
+ * @returns {void}
+ */
 export default (req: VercelRequest, res: VercelResponse) => {
     const metrics = getHealthMetrics();
     const html = generateStatusPage(metrics);

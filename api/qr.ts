@@ -1,17 +1,38 @@
+/**
+ * QR Code Generator API for Deal-Quest-Bot
+ * This module generates QR codes for WhatsApp communication with the Deal-Quest-Bot,
+ * along with corresponding HTML pages that display the QR code and instructions.
+ * @module qr
+ */
+
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "fs";
 import { join } from "path";
 import QRCode from "qrcode";
 import catalog from "./catalog.json";
 
+/**
+ * Interface representing the data needed for QR code generation and display
+ * @interface QRData
+ */
 interface QRData {
+    /** The WhatsApp URL that the QR code will link to */
     whatsappUrl: string;
+    /** The phone number for WhatsApp communication */
     phoneNumber: string;
+    /** The pre-filled message to be sent via WhatsApp */
     message: string;
+    /** ISO timestamp of when the QR code was generated */
     timestamp: string;
+    /** SVG representation of the QR code */
     qrSvg: string;
 }
 
+/**
+ * Generates a random message related to food deals
+ * Attempts to match messages with categories from the catalog
+ * @returns {string} A randomly selected message about food deals
+ */
 function getRandomMessage(): string {
     const messages = [
         "🍕 Hey! Show me the best pizza deals around",
@@ -58,6 +79,13 @@ function getRandomMessage(): string {
     return messages[Math.floor(Math.random() * messages.length)];
 }
 
+/**
+ * Generates an HTML page displaying the QR code and WhatsApp connection information
+ * Uses a template file if available, otherwise falls back to a hardcoded template
+ * @param {QRData} data - The QR code data to be displayed
+ * @returns {string} HTML content of the QR code page
+ * @throws Will fall back to a simpler template if the main template file cannot be read
+ */
 function generateQRPage(data: QRData): string {
     try {
         const templatePath = join(process.cwd(), "api", "qr-template.html");
@@ -79,6 +107,11 @@ function generateQRPage(data: QRData): string {
     }
 }
 
+/**
+ * Generates a fallback HTML page when the template cannot be loaded
+ * @param {QRData} data - The QR code data to be displayed
+ * @returns {string} HTML content of the fallback QR code page
+ */
 function getFallbackHtml(data: QRData): string {
     return `<!DOCTYPE html>
 <html lang="en">
@@ -191,12 +224,34 @@ function getFallbackHtml(data: QRData): string {
 </html>`;
 }
 
+/**
+ * Vercel serverless function that handles QR code generation requests
+ * Supports multiple response formats including HTML, SVG, and JSON
+ *
+ * @param {VercelRequest} req - The incoming HTTP request
+ * @param {VercelResponse} res - The HTTP response object
+ * @returns {Promise<void>} A promise that resolves when the response has been sent
+ *
+ * @example
+ * // Request HTML format (default)
+ * GET /api/qr
+ *
+ * @example
+ * // Request SVG format
+ * GET /api/qr?format=svg
+ *
+ * @example
+ * // Request JSON format
+ * GET /api/qr?format=json
+ */
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     try {
         const whatsappNumber =
             process.env.WHATSAPP_NUMBER || "whatsapp:+15556440448";
         const phoneNumber = whatsappNumber.replace("whatsapp:+", "");
+
         const message = getRandomMessage();
+
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
         const svg = await QRCode.toString(whatsappUrl, {
