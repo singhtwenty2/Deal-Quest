@@ -2,6 +2,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { readFileSync } from "fs";
 import { join } from "path";
 import QRCode from "qrcode";
+import catalog from "./catalog.json";
 
 interface QRData {
     whatsappUrl: string;
@@ -9,6 +10,52 @@ interface QRData {
     message: string;
     timestamp: string;
     qrSvg: string;
+}
+
+function getRandomMessage(): string {
+    const messages = [
+        "🍕 Hey! Show me the best pizza deals around",
+        "☕ Looking for great coffee spots with offers",
+        "🍔 Find me burger places with amazing deals",
+        "🍣 Where can I get fresh sushi with discounts?",
+        "🥤 Need smoothie bars with healthy options nearby",
+        "🌮 Craving tacos! What deals are available?",
+        "🍦 Show me ice cream places with sweet deals",
+        "🍜 Looking for ramen spots with good offers",
+        "🥪 Find sandwich places with lunch specials",
+        "🍩 Need donut shops with fresh daily deals",
+        "🍴 What's the best food deal near me right now?",
+        "💰 Show me today's hottest restaurant discounts",
+        "🔥 Looking for buy-one-get-one deals nearby",
+        "⭐ Find me 5-star rated places with offers",
+        "📍 What food deals are close to my location?",
+        "🎉 Show me happy hour specials around here",
+        "🛍️ Looking for combo meal deals and discounts",
+        "👨‍🍳 Find gourmet food spots with great prices",
+        "🌟 What are the top-rated deals today?",
+        "🚀 Quick! I need the best food deals now",
+    ];
+
+    const categories = catalog.map((item) => item.category);
+    const randomCategory =
+        categories[Math.floor(Math.random() * categories.length)];
+
+    const categoryMessages = messages.filter(
+        (msg) =>
+            msg.toLowerCase().includes(randomCategory) ||
+            msg.includes("food deal") ||
+            msg.includes("deals") ||
+            msg.includes("discounts") ||
+            msg.includes("specials"),
+    );
+
+    if (categoryMessages.length > 0) {
+        return categoryMessages[
+            Math.floor(Math.random() * categoryMessages.length)
+        ];
+    }
+
+    return messages[Math.floor(Math.random() * messages.length)];
 }
 
 function generateQRPage(data: QRData): string {
@@ -149,7 +196,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const whatsappNumber =
             process.env.WHATSAPP_NUMBER || "whatsapp:+15556440448";
         const phoneNumber = whatsappNumber.replace("whatsapp:+", "");
-        const message = "Hi Bot, find coffee near me";
+        const message = getRandomMessage();
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
         const svg = await QRCode.toString(whatsappUrl, {
