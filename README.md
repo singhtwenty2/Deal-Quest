@@ -260,7 +260,7 @@ function findDeals(query: string) {
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/deal-quest-bot.git
+git clone https://github.com/singhtwenty2/Deal-Quest
 cd deal-quest-bot
 
 # Install dependencies
