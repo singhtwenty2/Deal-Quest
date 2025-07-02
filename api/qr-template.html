@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Deal-Quest-Bot QR Code</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    "Helvetica Neue", Arial, sans-serif;
+                background-color: #f0f2f5;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                color: #111b21;
+            }
+
+            .container {
+                max-width: 480px;
+                width: 100%;
+                background: white;
+                border-radius: 8px;
+                box-shadow:
+                    0 1px 3px rgba(0, 0, 0, 0.12),
+                    0 1px 2px rgba(0, 0, 0, 0.24);
+                overflow: hidden;
+            }
+
+            .header {
+                background: #00a884;
+                color: white;
+                padding: 24px;
+                text-align: center;
+                position: relative;
+            }
+
+            .header::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, #00a884, #008069);
+                z-index: -1;
+            }
+
+            .whatsapp-logo {
+                font-size: 2.5rem;
+                margin-bottom: 8px;
+                display: block;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+                font-weight: 400;
+                margin-bottom: 4px;
+                opacity: 0.95;
+            }
+
+            .subtitle {
+                font-size: 0.875rem;
+                opacity: 0.8;
+                font-weight: 300;
+            }
+
+            .content {
+                padding: 32px 24px;
+            }
+
+            .qr-section {
+                text-align: center;
+                margin-bottom: 32px;
+            }
+
+            .qr-container {
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                border: 1px solid #e9edef;
+                display: inline-block;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+                margin-bottom: 16px;
+            }
+
+            .qr-container svg {
+                display: block;
+                max-width: 100%;
+                height: auto;
+            }
+
+            .qr-info {
+                color: #667781;
+                font-size: 0.875rem;
+                line-height: 1.4;
+                margin-bottom: 20px;
+            }
+
+            .steps {
+                margin-bottom: 32px;
+            }
+
+            .steps-title {
+                font-size: 1.125rem;
+                font-weight: 500;
+                color: #111b21;
+                margin-bottom: 16px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+
+            .step {
+                display: flex;
+                align-items: flex-start;
+                margin-bottom: 12px;
+                gap: 12px;
+            }
+
+            .step-number {
+                background: #00a884;
+                color: white;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.75rem;
+                font-weight: 500;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+
+            .step-text {
+                color: #667781;
+                font-size: 0.875rem;
+                line-height: 1.4;
+            }
+
+            .action-section {
+                margin-bottom: 24px;
+            }
+
+            .button {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                background: #00a884;
+                color: white;
+                padding: 12px 24px;
+                border-radius: 24px;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 0.875rem;
+                transition: all 0.2s ease;
+                border: none;
+                cursor: pointer;
+                width: 100%;
+                margin-bottom: 12px;
+            }
+
+            .button:hover {
+                background: #008069;
+            }
+
+            .button-secondary {
+                background: transparent;
+                color: #00a884;
+                border: 1px solid #00a884;
+            }
+
+            .button-secondary:hover {
+                background: #f0f9ff;
+            }
+
+            .info-section {
+                background: #f8f9fa;
+                padding: 16px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+            }
+
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                margin-bottom: 8px;
+                gap: 16px;
+            }
+
+            .info-row:last-child {
+                margin-bottom: 0;
+            }
+
+            .info-label {
+                color: #667781;
+                font-size: 0.875rem;
+                font-weight: 500;
+                flex-shrink: 0;
+            }
+
+            .info-value {
+                color: #111b21;
+                font-size: 0.875rem;
+                text-align: right;
+                word-break: break-all;
+                font-family:
+                    "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas,
+                    "Courier New", monospace;
+            }
+
+            .footer {
+                padding: 16px 24px;
+                background: #f8f9fa;
+                border-top: 1px solid #e9edef;
+                text-align: center;
+            }
+
+            .footer-text {
+                color: #667781;
+                font-size: 0.75rem;
+                line-height: 1.4;
+            }
+
+            .divider {
+                height: 1px;
+                background: #e9edef;
+                margin: 24px 0;
+            }
+
+            @media (max-width: 480px) {
+                .container {
+                    margin: 10px;
+                    border-radius: 0;
+                }
+
+                .content {
+                    padding: 24px 20px;
+                }
+
+                .header {
+                    padding: 20px;
+                }
+
+                .whatsapp-logo {
+                    font-size: 2rem;
+                }
+
+                .header h1 {
+                    font-size: 1.25rem;
+                }
+            }
+
+            .fade-in {
+                animation: fadeIn 0.6s ease-out;
+            }
+
+            @keyframes fadeIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container fade-in">
+            <div class="header">
+                <div class="whatsapp-logo">📱</div>
+                <h1>Deal-Quest-Bot</h1>
+                <div class="subtitle">Connect via WhatsApp</div>
+            </div>
+
+            <div class="content">
+                <div class="qr-section">
+                    <div class="qr-container">{{QR_SVG}}</div>
+                    <div class="qr-info">
+                        Scan this code with your phone to start chatting
+                    </div>
+                </div>
+
+                <div class="steps">
+                    <div class="steps-title">📋 How to connect</div>
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-text">Open WhatsApp on your phone</div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-text">
+                            Tap Menu or Settings and select Linked Devices
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-text">
+                            Point your phone at this screen to capture the code
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="action-section">
+                    <a href="{{WHATSAPP_URL}}" class="button">
+                        💬 Open WhatsApp
+                    </a>
+                    <button
+                        onclick="copyToClipboard('{{WHATSAPP_URL}}')"
+                        class="button button-secondary"
+                    >
+                        📋 Copy Link
+                    </button>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-row">
+                        <div class="info-label">Phone:</div>
+                        <div class="info-value">+{{PHONE_NUMBER}}</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Message:</div>
+                        <div class="info-value">"{{MESSAGE}}"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <div class="footer-text">
+                    Generated: {{TIMESTAMP}}<br />
+                    🔒 Your messages are end-to-end encrypted
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function copyToClipboard(text) {
+                navigator.clipboard
+                    .writeText(text)
+                    .then(function () {
+                        const button = event.target;
+                        const originalText = button.innerHTML;
+                        button.innerHTML = "✅ Copied!";
+                        button.style.background = "#00a884";
+                        button.style.color = "white";
+                        button.style.border = "1px solid #00a884";
+
+                        setTimeout(() => {
+                            button.innerHTML = originalText;
+                            button.style.background = "transparent";
+                            button.style.color = "#00a884";
+                            button.style.border = "1px solid #00a884";
+                        }, 2000);
+                    })
+                    .catch(function (err) {
+                        console.error("Could not copy text: ", err);
+                        alert("Link copied to clipboard!");
+                    });
+            }
+
+            // Add smooth entrance animation
+            document.addEventListener("DOMContentLoaded", function () {
+                const container = document.querySelector(".container");
+                container.classList.add("fade-in");
+            });
+        </script>
+    </body>
+</html>

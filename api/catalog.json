@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "Fresh Coffee House",
+        "category": "coffee",
+        "location": "Downtown",
+        "deal": "20% off all drinks",
+        "description": "Premium coffee beans and cozy atmosphere"
+    },
+    {
+        "id": 2,
+        "name": "Pizza Palace",
+        "category": "pizza",
+        "location": "Main Street",
+        "deal": "Buy 1 Get 1 Free",
+        "description": "Authentic Italian pizza with fresh ingredients"
+    },
+    {
+        "id": 3,
+        "name": "Burger Junction",
+        "category": "burger",
+        "location": "Food Court",
+        "deal": "30% off combo meals",
+        "description": "Gourmet burgers made with organic beef"
+    },
+    {
+        "id": 4,
+        "name": "Sushi Zen",
+        "category": "sushi",
+        "location": "Uptown",
+        "deal": "Happy Hour 50% off",
+        "description": "Fresh sushi and traditional Japanese cuisine"
+    },
+    {
+        "id": 5,
+        "name": "Green Smoothie Bar",
+        "category": "smoothie",
+        "location": "Health District",
+        "deal": "Free protein boost",
+        "description": "Healthy smoothies with organic fruits and vegetables"
+    },
+    {
+        "id": 6,
+        "name": "Taco Fiesta",
+        "category": "tacos",
+        "location": "South Side",
+        "deal": "Taco Tuesday - $1 tacos",
+        "description": "Authentic Mexican tacos with handmade tortillas"
+    },
+    {
+        "id": 7,
+        "name": "Ice Cream Dreams",
+        "category": "ice cream",
+        "location": "Park Avenue",
+        "deal": "Double scoop for single price",
+        "description": "Artisanal ice cream with unique flavors"
+    },
+    {
+        "id": 8,
+        "name": "Ramen Noodle House",
+        "category": "ramen",
+        "location": "Little Tokyo",
+        "deal": "Free extra noodles",
+        "description": "Traditional Japanese ramen with rich broth"
+    },
+    {
+        "id": 9,
+        "name": "Sandwich Station",
+        "category": "sandwich",
+        "location": "Business District",
+        "deal": "Lunch combo $7.99",
+        "description": "Fresh sandwiches made to order with premium ingredients"
+    },
+    {
+        "id": 10,
+        "name": "Donut Delight",
+        "category": "donuts",
+        "location": "Morning Plaza",
+        "deal": "Dozen for $9.99",
+        "description": "Fresh baked donuts and pastries daily"
+    }
+]

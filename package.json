@@ -1,0 +1,16 @@
+{
+  "name": "deal_quest_bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Aryan Singh",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.0.7",
+    "@types/qrcode": "^1.5.5",
+    "@vercel/node": "^5.3.0",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4"
+  }
+}

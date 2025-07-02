@@ -1,0 +1,14 @@
+{
+    "redirects": [
+        {
+            "source": "/",
+            "destination": "https://deal-quest-app.vercel.app/",
+            "permanent": true
+        },
+        {
+            "source": "/app",
+            "destination": "https://deal-quest-app.vercel.app/",
+            "permanent": true
+        }
+    ]
+}
